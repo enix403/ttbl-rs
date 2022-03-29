@@ -20,7 +20,9 @@ Tool for generating Truth Tables.
 
    ```sh
    cargo build --release
+   # This above command might take some time to complete
    
+   # Now start the program
    ./target/release/ttbl
    ```
    
