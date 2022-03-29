@@ -4,7 +4,7 @@ Tool for generating Truth Tables.
 
 ## Building
 
-1. Make sure you have a rust toolchain installed (cargo)
+1. Make sure you have a rust toolchain installed (cargo and a rust compiler)
    
    ```sh
    rustc --version
