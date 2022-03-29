@@ -141,7 +141,8 @@ fn process_input(stmt: String)
 
 fn main()
 {
-    println!("Welcome to ttbl!\n");
+    println!("Welcome to ttbl!");
+    println!("Press <Ctrl-D> to exit\n");
 
     let mut rl = Editor::<()>::new();
     loop {
