@@ -18,11 +18,6 @@ use tabled::{self, Table, Modify, Wrap, Style, Concat, builder::Builder};
 use rustyline::error::ReadlineError;
 use rustyline::Editor;
 
-// let stmt: String = String::from("p0 & (p1 | p2)");
-// let stmt: String = String::from("({p})");
-// let stmt: String = String::from("!({p0 | {p1}} & {p2})");
-// let stmt: String = String::from("(p0 or p1) and ! {p0 & p1}");
-
 fn pow2(exponent: u32) -> u32
 {
     return (2 as u32).pow(exponent);
