@@ -148,6 +148,8 @@ pub fn evaluate(groups: &Vec<Vec<NodeOperation>>, values: &[bool], out_eval: &mu
                     {
                         OperatorType::AND => left && right,
                         OperatorType::OR => left || right,
+                        OperatorType::CNDL => !left || right,
+                        OperatorType::BI_CNDL => left == right,
                         _ => { panic!("Unhandled binary operation"); }
                     };
 
@@ -178,6 +180,8 @@ const SYMBOL_TRUE: &'static str = "<T>";
 const SYMBOL_FALSE: &'static str = "<F>";
 const SYMBOL_AND: &'static str = " & ";
 const SYMBOL_OR: &'static str = " | ";
+const SYMBOL_CNDL: &'static str = " => ";
+const SYMBOL_BI_CNDL: &'static str = " <=> ";
 const SYMBOL_NOT: &'static str = "!";
 const SYMBOL_LEFT_PAREN: &'static str = "(";
 const SYMBOL_RIGHT_PAREN: &'static str = ")";
@@ -212,6 +216,8 @@ pub fn groups_to_string(groups: &Vec<Vec<NodeOperation>>, variables: &Vec<String
                     let symbol = match *op_type {
                         OperatorType::AND => SYMBOL_AND,
                         OperatorType::OR => SYMBOL_OR,
+                        OperatorType::CNDL => SYMBOL_CNDL,
+                        OperatorType::BI_CNDL => SYMBOL_BI_CNDL,
                         _ => ""
                     };
 

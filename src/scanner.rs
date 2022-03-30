@@ -1,7 +1,8 @@
 use std::collections::HashMap;
 
+#[allow(non_camel_case_types)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub enum OperatorType { AND, NOT, OR }
+pub enum OperatorType { AND, NOT, OR, CNDL, BI_CNDL }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum TokenType
@@ -103,6 +104,27 @@ pub fn tokenize(stmt: &str) -> Vec<Token> {
             '&' => { tokens.push(state.make_token(TokenType::Operator(OperatorType::AND))); },
             '|' => { tokens.push(state.make_token(TokenType::Operator(OperatorType::OR))); },
             '!' | '~' => { tokens.push(state.make_token(TokenType::Operator(OperatorType::NOT))); },
+            '=' => {
+                if state.move_if_match('>')
+                {
+                    tokens.push(state.make_token(TokenType::Operator(OperatorType::CNDL)));
+                }
+                else
+                {
+                    tokens.push(state.make_token(TokenType::Error));
+                }
+            },
+
+            '<' => {
+                if state.move_if_match('=') && state.move_if_match('>')
+                {
+                    tokens.push(state.make_token(TokenType::Operator(OperatorType::BI_CNDL)));
+                }
+                else
+                {
+                    tokens.push(state.make_token(TokenType::Error));
+                }
+            },
 
             '(' => { tokens.push(state.make_token(TokenType::LeftParen)); },
             ')' => { tokens.push(state.make_token(TokenType::RightParen)); },

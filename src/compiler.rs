@@ -37,9 +37,11 @@ impl ASTNode
 fn stash_prev_op(current_op: OperatorType, target_op: OperatorType) -> bool
 {
     let op_priority: HashMap<OperatorType, u16> = HashMap::from([
-        (OperatorType::NOT, 6),
-        (OperatorType::AND, 4),
-        (OperatorType::OR, 2),
+        (OperatorType::NOT, 10),
+        (OperatorType::AND, 8),
+        (OperatorType::OR, 6),
+        (OperatorType::CNDL, 4),
+        (OperatorType::BI_CNDL, 2),
     ]);
 
     return op_priority.get(&current_op).unwrap() < op_priority.get(&target_op).unwrap();
@@ -53,7 +55,11 @@ fn create_operation_node(node_stack: &mut NodeStack, op: OperatorType) -> Result
 
     match op
     {
-        OperatorType::AND | OperatorType::OR => {
+        OperatorType::AND
+        | OperatorType::OR
+        | OperatorType::CNDL
+        | OperatorType::BI_CNDL
+        => {
             node = ASTNode::create(NodeOperation::BinaryOperation(op));
             node.right = node_stack.pop();
             node.left = node_stack.pop();
